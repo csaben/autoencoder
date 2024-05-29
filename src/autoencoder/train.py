@@ -19,14 +19,9 @@ LOGGER = logging.getLogger(__name__)
 
 load_dotenv("data.env")
 
-infected_ds = get_dataset(os.getenv("infected_patients_directories"))
 uninfected_ds = get_dataset(os.getenv("uninfected_patients_directories"))
 root_dir = os.getenv("infected_patients_directories")
-data_loader_in = DataLoader(infected_ds, batch_size=32, shuffle=True, num_workers=4)
 data_loader_un = DataLoader(uninfected_ds, batch_size=32, shuffle=True, num_workers=4)
-
-
-print(data_loader_in, data_loader_un)
 
 
 model = AutoEncoder()
@@ -34,7 +29,7 @@ criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3, weight_decay=1e-5)
 
 # hyperparams
-num_epochs = 10
+num_epochs = 15
 
 # train loop
 outputs = []
