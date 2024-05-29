@@ -1,8 +1,28 @@
 # To use the dataset with a DataLoader
 import matplotlib.pyplot as plt
+import torch
 import torchvision.transforms as transforms
 
 from autoencoder.dataset import ImageDataset
+
+
+# save model
+def save(path, model, optimizer) -> None:
+    torch.save(
+        {
+            "model_state": model.state_dict(),
+            "optimizer_state": optimizer.state_dict(),
+        },
+        path,
+    )
+
+
+def load(path, model, optimizer):
+    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    data = torch.load(path, map_location=device)
+    model.load_state_dict(data["model_state"])
+    optimizer.load_state_dict(data["optimizer_state"])
+    model.to(device)
 
 
 def view_tiff(
