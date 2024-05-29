@@ -52,8 +52,10 @@ with torch.no_grad():
         img_un = img_un.to(device)
 
         for i in range(img_in.size(0)):
-            single_img_in = img_in[i].unsqueeze(0)
-            single_img_un = img_un[i].unsqueeze(0)
+            single_img_in = img_in[i].unsqueeze(
+                0
+            )  # add a batch dimension of (1, ...) so network can handle it
+            single_img_un = img_un[i].unsqueeze(0)  # add a batch dimension of (1, ...)
 
             recon_in = model(single_img_in)
             recon_un = model(single_img_un)
