@@ -1,7 +1,7 @@
 data/
 logs/
 *.pth
-./autoencoder.pth
+autoencoder.pth
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
