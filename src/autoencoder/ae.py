@@ -1,0 +1,41 @@
+import torch.nn as nn
+
+
+class AutoEncoder(nn.Module):
+    def __init__(self):
+        super(AutoEncoder, self).__init__()
+        # Encoder
+        self.encoder = nn.Sequential(
+            nn.Conv2d(3, 64, kernel_size=4, stride=2, padding=1),  # [B, 64, 64, 64]
+            nn.ReLU(True),
+            nn.Conv2d(64, 128, kernel_size=4, stride=2, padding=1),  # [B, 128, 32, 32]
+            nn.ReLU(True),
+            nn.Conv2d(128, 256, kernel_size=4, stride=2, padding=1),  # [B, 256, 16, 16]
+            nn.ReLU(True),
+            nn.Conv2d(256, 512, kernel_size=4, stride=2, padding=1),  # [B, 512, 8, 8]
+            nn.ReLU(True),
+        )
+        # Decoder
+        self.decoder = nn.Sequential(
+            nn.ConvTranspose2d(
+                512, 256, kernel_size=4, stride=2, padding=1
+            ),  # [B, 256, 16, 16]
+            nn.ReLU(True),
+            nn.ConvTranspose2d(
+                256, 128, kernel_size=4, stride=2, padding=1
+            ),  # [B, 128, 32, 32]
+            nn.ReLU(True),
+            nn.ConvTranspose2d(
+                128, 64, kernel_size=4, stride=2, padding=1
+            ),  # [B, 64, 64, 64]
+            nn.ReLU(True),
+            nn.ConvTranspose2d(
+                64, 3, kernel_size=4, stride=2, padding=1
+            ),  # [B, 3, 128, 128]
+            nn.Sigmoid(),  # Use Sigmoid if images are normalized between 0 and 1
+        )
+
+    def forward(self, x):
+        x = self.encoder(x)
+        x = self.decoder(x)
+        return x
