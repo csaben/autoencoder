@@ -14,7 +14,22 @@ sample autoencoder implementation
     - [anomalies (infected)](https://data.lhncbc.nlm.nih.gov/public/Malaria/NIH-NLM-ThickBloodSmearsPV/NIH-NLM-ThickBloodSmearsPV.zip)
 
 ## Instructions
-Download and extract data into a folder `data` in the root of the project
+1. in the root of the project
+```bash
+mkdir data
+mkdir logs
+```
+2. Download and extract data into a folder `data`
+3. Ready to go! Training and Inference is as follows,
+```bash
+python src/autoencoder/train.py
+python src/autoencoder/infer_single.py
+```
+
+`soon: will update project to use __main__.py for training and inference`
+
+
+Setup logs directory
 
 ## Installation
 
